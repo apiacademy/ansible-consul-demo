@@ -1,0 +1,13 @@
+{
+    "encrypt" : "WXI8GsuEnA48rEgayBTBaw==",
+    "addresses" : {
+      "http" : "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}"
+    },
+    "data_dir" : "/var/consul",
+    "server": true,
+    "log_level": "INFO",
+    "datacenter": "dc1",
+    "rejoin_after_leave": true,
+    "retry_join" : {{consul_servers | replace("'", "\"")}},
+    "ui_dir" : "/home/consul/dist"
+}

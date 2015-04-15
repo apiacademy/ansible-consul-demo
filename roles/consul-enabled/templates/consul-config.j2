@@ -1,0 +1,8 @@
+{
+  "encrypt" : "WXI8GsuEnA48rEgayBTBaw==",
+  "data_dir" : "/var/consul",
+  "log_level": "INFO",
+  "datacenter": "dc01",
+  "rejoin_after_leave": true,
+  "retry_join" : {{consul_servers | replace("'", "\"")}}
+}

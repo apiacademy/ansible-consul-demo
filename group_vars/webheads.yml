@@ -1,0 +1,3 @@
+---
+consul_groupname: "webheads"
+service_port: 3000

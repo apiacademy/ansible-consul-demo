@@ -1,0 +1,22 @@
+{
+  "service": {
+    "name": {% if consul_groupname %} "{{ consul_groupname }}" {% else %} "{{ group_names[0] }}" {% endif %},
+    "tags": ["member"]
+    
+    {% if service_port is defined and service_port %}
+    "port": {{ service_port }}
+    {% endif %}
+    
+    {% if healthcheck_script is defined and healthcheck_script %}
+  {% if service_port is defined and service_port %},{% endif %} "check": {
+      "script": "{{ healthcheck_script|default("") }}",
+      "interval": "{{ healthcheck_interval|default(10) }}"
+    }
+    {% elif service_port is defined and service_port %}
+  , "check": {
+      "script": "netstat -an | grep {{ service_port }} && exit 0 || exit 255",
+      "interval": "{{ healthcheck_interval|default(10) }}"
+    }
+    {% endif %}
+  }
+}

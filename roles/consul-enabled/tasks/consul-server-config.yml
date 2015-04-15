@@ -1,0 +1,11 @@
+---
+  - name: "Install Local Consul Configuration and Restart"
+    template: src=consul-client.conf.j2 dest=/etc/consul/consul-client.json
+
+  - name: "Install Consul Web UI"        
+    unarchive: src=0.5.0_web_ui.zip
+               dest=/home/consul copy=yes
+               # path created will be: /home/consul/dist
+
+  - name: restart consul
+    service: name=consul state=restarted

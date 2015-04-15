@@ -1,0 +1,10 @@
+description "Consul Daemon"
+start on (local-filesystems and net-device-up IFACE=eth0)
+stop on runlevel [!12345]
+
+respawn
+
+setuid consul
+setgid consul
+
+exec /usr/local/bin/consul agent -config-dir /etc/consul

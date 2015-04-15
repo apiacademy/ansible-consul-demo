@@ -1,0 +1,69 @@
+---
+
+  - name: Add the consul user
+    user: name=consul  home=/home/consul state=present
+
+  # Note: for realiability reasons we pre-downloaded this file and stored it locally under "files"  
+  #- name: "Download Consul binary 0.5 as a zip"
+    # see: http://www.consul.io/downloads.html
+    # get_url: url=https://dl.bintray.com/mitchellh/consul/0.5.0_linux_amd64.zip 
+    #        dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}"
+
+  - name: "Unzip Consul binary under /usr/local/bin"        
+    unarchive: src=consul-0.5.zip 
+               dest=/usr/local/bin copy=yes
+
+  - name: "Create /etc/consul"
+    file: path=/etc/consul state=directory
+
+  - name: "Create /var/consul"
+    file: path=/var/consul state=directory
+          owner="consul" group="consul" mode="u=rwx,g=rwx,o=r"
+
+  - name: "Install main consul config file for clients"
+    template: src="consul-config.j2" dest=/etc/consul/config.json 
+              owner=root group=root mode="u=rw,g=r,o=r"
+    when: consul_server is not defined
+
+  - name: "Install main consul config file for servers"
+    template: src="consul-config-server.j2" dest=/etc/consul/config.json 
+            owner=root group=root mode="u=rw,g=r,o=r"
+    when: consul_server is defined
+
+
+  - name: "Download Consul-Template binary 0.7 as a tar.gz"
+    # see: https://github.com/hashicorp/consul-template/releases
+    get_url: url=https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz
+            dest=/usr/local/bin/consul-template-0.7.0.tar.gz
+
+  - name: "Unarchive Consul-Template binary under /usr/local/bin"        
+    unarchive: src=/usr/local/bin/consul-template-0.7.0.tar.gz
+               dest=/usr/local/bin copy=no
+
+  - name: "Move consule-template to final destination"              
+    command: "mv /usr/local/bin/consul-template_0.7.0_linux_amd64/consul-template /usr/local/bin/consul-template"
+
+  - name: "Create /etc/consul-template"
+    file: path=/etc/consul-template state=directory
+
+  - name: "Install main/generic consul-template config file"
+    template: src="consul-template-config.j2" dest=/etc/consul-template/config.hcl 
+              owner=root group=root mode="u=rw,g=r,o=r"
+
+  - name: "Install Consul Upstart job for clients"
+    template: src="upstart-consul-client.j2" dest=/etc/init/consul.conf
+              owner=root group=root mode="u=rw,g=r,o=r"
+    when: consul_server is not defined              
+
+  - name: "Install Consul Upstart job for servers"
+    template: src="upstart-consul-server.j2" dest=/etc/init/consul.conf
+              owner=root group=root mode="u=rw,g=r,o=r"
+    when: consul_server is defined              
+
+  - name: "Install Consul-Template Upstart job"
+    template: src="upstart-consul-template.j2" dest=/etc/init/consul-template.conf
+              owner=root group=root mode="u=rw,g=r,o=r"
+
+
+  - service: name=consul state=restarted enabled=yes
+  - service: name="consul-template" state=restarted enabled=yes

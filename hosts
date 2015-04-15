@@ -1,0 +1,9 @@
+# [local]
+# 127.0.0.1 ansible_connection=local
+
+[webheads]
+54.149.188.28 consul_host=web1
+54.68.85.83   consul_host=web2
+
+[consulservers]
+54.149.139.36 consul_host=consul1

@@ -1,0 +1,10 @@
+---
+- name: "Install Local Consul Configuration and Restart"
+  template: src=consul-client.conf.j2 dest=/etc/consul/consul-client.json
+  notify:
+  - restart consul
+
+- name: "Install Consul's Nameservers"
+  # Note: change of resolv.conf doesn't require a restart
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf 
+              owner=root group=root mode="u=rw,g=r,o=r"

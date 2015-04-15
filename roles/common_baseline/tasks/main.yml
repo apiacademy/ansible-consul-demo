@@ -1,0 +1,13 @@
+---
+
+  - name: "Update APT cache"
+    apt: update_cache=yes
+
+  - name: Install common packages
+    apt: name={{ item }} state=present
+    with_items:
+      - vim
+      - curl
+      - zip
+      - unzip      
+      - sudo   
