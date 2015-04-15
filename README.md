@@ -21,9 +21,6 @@ spin your servers up somewhere where that is not the case, edit
 
 ## Quickstart
 
-To make sure your SSH/AWS setup is functional, create `ssh` folder in the
-ansible-consul-demo checkout
-
 To make sure your ssh and hosts setup is correct and you can login to all 
 required servers:
 
