@@ -10,7 +10,8 @@ same level as this README)
 spin your servers up somewhere where that is not the case, edit 
 `group_vars/all.yml` and modify the value of the `ansible_ssh_user: ubuntu` variable.
 1. Create `ssh` folder under this checkout (same level as README)
-1. Save a private SSH key under the ssh/private-key.pem
+1. Save a private SSH key that corresponds to the root user on all your new servers
+   under: `ssh/private-key.pem`
 1. Make sure your private key permissions are valid:
        
        ```consul
