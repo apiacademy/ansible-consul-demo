@@ -25,5 +25,11 @@ To make sure your ssh and hosts setup is correct and you can login to all
 required servers:
 
 ```console
-ansible -i hosts all -m ping
+ansible all -m ping -i hosts
+```
+
+To install basic Linux tools (curl, vim etc.) on all servers:
+
+```console
+ansible-playbook basics.yml -i hosts
 ```
