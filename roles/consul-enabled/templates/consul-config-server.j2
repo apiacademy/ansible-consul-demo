@@ -6,7 +6,7 @@
     "data_dir" : "/var/consul",
     "server": true,
     "log_level": "INFO",
-    "datacenter": "dc1",
+    "datacenter": "datacenter01",
     "rejoin_after_leave": true,
     "retry_join" : {{consul_servers | replace("'", "\"")}},
     "ui_dir" : "/home/consul/dist"
