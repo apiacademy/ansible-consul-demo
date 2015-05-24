@@ -7,4 +7,4 @@ respawn
 setuid consul
 setgid consul
 
-exec /usr/local/bin/consul agent -config-dir /etc/consul
+exec /usr/local/bin/consul agent -bootstrap-expect {{ consul_cluster_size|default(3) }} -config-dir /etc/consul

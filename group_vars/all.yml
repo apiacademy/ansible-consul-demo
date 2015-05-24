@@ -1,7 +1,12 @@
 
+consul_cluster_size: 3
+
 consul_servers: 
   #  If you have public/private IPs (e.g. at EC2) you want these to be the private IPs
-  - 172.31.28.61 
+  - 52.25.217.207
+  - 52.25.217.39
+  - 52.25.217.39
+
 
 ansible_ssh_private_key_file: ssh/private-key.pem
 ansible_ssh_user: ubuntu
