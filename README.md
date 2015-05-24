@@ -5,8 +5,8 @@ Demo of Consul and Ansible
 
 1. Spin-up some Ubuntu servers on AWS (or any other hosting)
 1. Edit the IPs of the servrs in the provided `hosts` file (present at the 
-same level as this README)
-2. Make sure to also edit `group_vars/all.yml" and enter the IP(s) of all servers
+same level as this README). Please make sure to indicate **public** IPs.
+1. Make sure to also edit `group_vars/all.yml` and enter the IP(s) of all servers
    that you allocated as consul servers. The entries in hosts and group_vars.all.yml
    must correspond to each other!
 1. In AWS EC2, the root username for Ubuntu servers is called: `ubuntu`. If you 
@@ -43,4 +43,18 @@ To install consul server and clients:
 
 ```console
 ansible-playbook bootstrap.yml -i hosts
+```
+
+## Consul User Interface
+
+```
+http://<server-ip>:8500/
+```
+
+## Debugging
+
+Consul logs are under: `/var/log/upstart/consul.log`
+
+```
+consul members
 ```
