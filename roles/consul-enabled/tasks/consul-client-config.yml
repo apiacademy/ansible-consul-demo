@@ -4,7 +4,7 @@
   notify:
   - restart consul
 
-- name: "Install Consul's Nameservers"
+- name: "Install Consul's Nameservers on consul clients"
   # Note: change of resolv.conf doesn't require a restart
-  template: src=resolv.conf.j2 dest=/etc/resolv.conf 
+  template: src=resolv.conf-client.j2 dest=/etc/resolv.conf 
               owner=root group=root mode="u=rw,g=r,o=r"

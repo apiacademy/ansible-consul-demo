@@ -10,7 +10,7 @@
     #        dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}"
 
   - name: "Unzip Consul binary under /usr/local/bin"        
-    unarchive: src=consul-0.5.zip 
+    unarchive: src=consul-0.5.2_linux_amd64.zip
                dest=/usr/local/bin copy=yes
 
   - name: "Create /etc/consul"

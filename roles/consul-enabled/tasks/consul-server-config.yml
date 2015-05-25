@@ -9,3 +9,16 @@
 
   - name: restart consul
     service: name=consul state=restarted
+
+  - name: Install DNSMasq
+    # see: http://www.morethanseven.net/2014/04/25/consul/
+    apt: name=dnsmasq state=present
+
+  - name: "Add DNSMasq Config on Consul Servers"
+    template: src=dnsmasq-config.j2 dest=/etc/dnsmasq.d/10-consul
+              owner=root group=root mode="u=rw,g=r,o=r"    
+    
+  - name: "Install proper nameservers on consul servers, with Google DNS failover"
+    # Note: change of resolv.conf doesn't require a restart
+    template: src=resolv.conf-server.j2 dest=/etc/resolv.conf 
+              owner=root group=root mode="u=rw,g=r,o=r"    
