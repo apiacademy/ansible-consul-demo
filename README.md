@@ -21,8 +21,8 @@ spin your servers up somewhere where that is not the case, edit
        chmod 700 ssh
        chmod 600 ssh/*
        ```
-1. Make sure you have at least following ports open on public IPs
-    ![](http://media.froyo.io/image/1U1h1w2a021h/EC2_Management_Console.png)
+1. You are probably going to need following ports open (customize as you see fit):
+    ![](http://media.froyo.io/image/3j362d0t1Y3y/EC2_Management_Console.png)
 
 ## Quickstart
 
