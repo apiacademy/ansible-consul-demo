@@ -22,3 +22,6 @@
     # Note: change of resolv.conf doesn't require a restart
     template: src=resolv.conf-server.j2 dest=/etc/resolv.conf 
               owner=root group=root mode="u=rw,g=r,o=r"    
+
+  - name: restart DNSMasq Services to make sure they pick up the latest/greatest config
+    service: name=dnsmasq state=restarted

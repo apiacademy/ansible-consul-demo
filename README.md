@@ -21,8 +21,9 @@ spin your servers up somewhere where that is not the case, edit
        chmod 700 ssh
        chmod 600 ssh/*
        ```
-1. You are probably going to need following ports open (customize as you see fit):
-    ![](http://media.froyo.io/image/3j362d0t1Y3y/EC2_Management_Console.png)
+1. You are probably going to need following ports open (based on 
+   <https://www.consul.io/docs/agent/options.html> customize as you see fit):
+    ![](http://media.froyo.io/image/402Y3I2o393G/Configuration_-_Consul_by_HashiCorp.png)
 
 ## Quickstart
 
@@ -55,6 +56,17 @@ http://<server-ip>:8500/
 
 Consul logs are under: `/var/log/upstart/consul.log`
 
+To see current members of Consul cluster: 
+
 ```
 consul members
 ```
+
+To make sure that consul leadership election succeeded (bootstrapping),
+you can run the following on a consul server:
+
+```
+consul info
+```
+
+and analyze the `raft:` section of the response.
