@@ -1,0 +1,52 @@
+---
+ 
+  - name: "Update APT cache"
+    apt: update_cache=yes
+  
+  - name: Add Docker repository key
+    apt_key:
+      id: "A88D21E9"
+      url: "http://get.docker.io/gpg"
+      state: present
+  
+  - name: Add Docker repository and update apt cache
+    apt_repository:
+      repo: "deb https://get.docker.com/ubuntu docker main"
+      update_cache: yes
+      state: present
+
+  - name: Install (or update) docker package
+    apt:
+      name: "lxc-docker"
+      state: latest
+      update_cache: yes
+      cache_valid_time: 600
+      
+  - name: Install pip
+    apt: name="python-pip" state="present"
+    
+  #- name: Set docker daemon options
+  #  copy:
+  #    content: "DOCKER_OPTS=\" -s overlay\""
+  #    dest: /etc/default/docker
+  #    owner: root
+  #    group: root
+  #    mode: 0644
+  
+  - name: Upgrade version of pip
+    shell: easy_install -U pip
+    
+  - name: Install docker python library
+    shell: pip install docker-py
+    #ignore_errors: true # docker-py installation is not quite idempotent.
+      
+  - name: Start docker-lxc
+    service:
+      name: docker
+      state: started
+  
+  - name: "Add docker group"
+    group: name=docker state=present
+  
+  - name: Add default \"ubuntu\" user (for AWS) docker group
+    shell: "usermod -aG docker ubuntu"

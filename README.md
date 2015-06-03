@@ -9,9 +9,12 @@ same level as this README). Please make sure to indicate **public** IPs.
 1. Make sure to also edit `group_vars/all.yml` and enter the IP(s) of all servers
    that you allocated as consul servers. The entries in hosts and group_vars.all.yml
    must correspond to each other!
+1. While you are in `group_vars/all.yml` you may also want to change the `shell_user`
+   variable. By default it is set to "ubuntu" because that's what AWS wants to log
+   into your Ubuntu servers in as, but another user may make sense to you.
 1. In AWS EC2, the root username for Ubuntu servers is called: `ubuntu`. If you 
-spin your servers up somewhere where that is not the case, edit 
-`group_vars/all.yml` and modify the value of the `ansible_ssh_user: ubuntu` variable.
+   spin your servers up somewhere where that is not the case, edit 
+   `group_vars/all.yml` and modify the value of the `ansible_ssh_user: ubuntu` variable.
 1. Create `ssh` folder under this checkout (same level as README)
 1. Save a private SSH key that corresponds to the root user on all your new servers
    under: `ssh/private-key.pem`
@@ -46,10 +49,16 @@ To install consul server and clients:
 ansible-playbook bootstrap.yml -i hosts
 ```
 
+To install everything, including the sample "hello world" microservice in Node.js:
+
+```console
+ansible-playbook webheads.yml -i hosts
+```
+
 ## Consul User Interface
 
 ```
-http://<server-ip>:8500/
+http://<ip-of-a-consul-server>:8500/
 ```
 
 ## Debugging

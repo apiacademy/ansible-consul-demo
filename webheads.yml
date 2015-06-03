@@ -1,0 +1,11 @@
+
+- hosts: all
+  sudo: yes
+  roles:
+    - common_baseline
+    - consul-enabled
+- hosts: webheads
+  sudo: yes
+  roles:
+    - docker-hosts
+    - microservice-hello

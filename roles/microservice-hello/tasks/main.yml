@@ -1,0 +1,23 @@
+---
+
+  - name: Kill existing Docker processes, if ones already existed, so the script is idempotent
+    shell: docker kill {{ item }} && docker rm {{ item }}
+    with_items:
+      - nb_hello
+      - docker_proxy
+    tags:
+      - docker
+    ignore_errors: true
+    
+  - name: Install Node.js Hello Microservice from Docker.io
+    # the "_" virtualhost is catch-all for the demo, replace it with a domain name
+    # of your choice if you want to attach to a specific domain.
+    shell: docker run -ti -p 5000:3000 -d -e VIRTUAL_HOST=app.example.com -e VIRTUAL_PORT=3000 --name=nb_hello irakli/nodebootstrap-hello
+    tags: 
+      - docker
+      
+  - name: Install Docker Nginx Proxy
+    # see: https://github.com/jwilder/nginx-proxy
+    shell: docker run -d -p 80:80 -e DEFAULT_HOST=app.example.com --name=docker_proxy -v /var/run/docker.sock:/tmp/docker.sock jwilder/nginx-proxy
+    tags:
+      - docker
