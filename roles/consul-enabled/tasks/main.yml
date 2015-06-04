@@ -6,7 +6,7 @@
     when: consul_server is defined
 
   - include: consul-client-config.yml
-    when: consul_groupname is defined and consul_server is not defined
+    when: consul_servicename is defined and consul_server is not defined
     tags:
       - consul-client-config
 

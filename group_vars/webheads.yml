@@ -1,4 +1,4 @@
 ---
-consul_groupname: "webheads"
+consul_servicename: "webheads"
 shell_user: ubuntu # User you typically log into the servers as. Will get permissions to admin Docker containers.
 service_port: 5000
