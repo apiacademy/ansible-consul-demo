@@ -1,5 +1,8 @@
 # ansible-consul-demo
-Demo of Consul and Ansible
+
+Demo of Consul and Ansible. This is the source-code of on-stage demo created for Ansible Fest, 2015.
+
+You can view the accompanying slidedeck of the presentation at: <http://www.slideshare.net/irakli/ansible-fest-irakli>
 
 ## Installation
 
