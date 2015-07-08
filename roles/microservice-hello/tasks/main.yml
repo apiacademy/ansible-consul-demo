@@ -1,10 +1,13 @@
 ---
 
   - name: Kill existing Docker processes, if ones already existed, so the script is idempotent
-    shell: docker kill {{ item }} && docker rm {{ item }}
+    # shell: 
+    command: docker kill {{ item }} && docker rm {{ item }}
     with_items:
       - nb_hello
       - docker_proxy
+    register: command_result
+    failed_when: "'NEVER' in command_result.stderr"
     tags:
       - docker
     ignore_errors: true
