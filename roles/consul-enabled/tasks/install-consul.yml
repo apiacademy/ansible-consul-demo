@@ -3,15 +3,19 @@
   - name: Add the consul user
     user: name=consul  home=/home/consul state=present
 
-  # Note: for realiability reasons we pre-downloaded this file and stored it locally under "files"  
-  #- name: "Download Consul binary 0.5 as a zip"
+  # Note: for reliability reasons we pre-downloaded this file and stored it locally under "files"  
+  - name: "Download Consul binary 0.5.2 as a zip"
     # see: http://www.consul.io/downloads.html
-    # get_url: url=https://dl.bintray.com/mitchellh/consul/0.5.0_linux_amd64.zip 
-    #        dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}"
+    get_url: url="https://github.com/apiacademy/ansible-consul-demo/raw/master/roles/consul-enabled/files/consul-0.5.2_linux_amd64.zip"
+             dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}"
 
   - name: "Unzip Consul binary under /usr/local/bin"        
-    unarchive: src=consul-0.5.2_linux_amd64.zip
-               dest=/usr/local/bin copy=yes
+    unarchive: src=/usr/local/bin/consul-0.5.zip
+               dest=/usr/local/bin copy=no
+
+  # - name: "Unzip Consul binary under /usr/local/bin"        
+  #  unarchive: src=consul-0.5.2_linux_amd64.zip
+  #             dest=/usr/local/bin copy=yes
 
   - name: "Create /etc/consul"
     file: path=/etc/consul state=directory
