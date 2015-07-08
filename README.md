@@ -79,3 +79,13 @@ consul info
 ```
 
 and analyze the `raft:` section of the response.
+
+## Troubleshooting
+
+If you are on a network that doesn't allow access to custom port you can create an SSH proxy:
+
+```
+ssh -D 12345 myuser@remote_ssh_server
+```
+
+and then in your browser proxu settings indicate SOCKS5 proxy with hostname: localhost, port: 12345.
