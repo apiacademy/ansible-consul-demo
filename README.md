@@ -30,6 +30,7 @@ same level as this README). Please make sure to indicate **public** IPs.
 1. You are probably going to need following ports open (based on 
    <https://www.consul.io/docs/agent/options.html> customize as you see fit):
     ![](http://media.froyo.io/image/402Y3I2o393G/Configuration_-_Consul_by_HashiCorp.png)
+1. If you need to copy security group configuration across AWS regions, this script is a life-saver: https://github.com/pedropregueiro/migrate-ec2-secgroups    
 
 ## Quickstart
 
