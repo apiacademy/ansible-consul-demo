@@ -65,6 +65,8 @@ ansible-playbook webheads.yml -i hosts
 http://<ip-of-a-consul-server>:8500/
 ```
 
+Your microservices will be available at: http://microserice-hello.service.consul on any host that points to Consul DNS servers as the DNS.
+
 ## Debugging
 
 Consul logs are under: `/var/log/upstart/consul.log`

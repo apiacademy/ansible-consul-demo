@@ -1,16 +1,27 @@
 ---
 
   - name: Kill existing Docker processes, if ones already existed, so the script is idempotent
-    # shell: 
-    command: docker kill {{ item }} && docker rm {{ item }}
+    shell: docker kill "{{ item }}"; 
+    with_items:
+      - nb_hello
+      - docker_proxy
+    register: docker_kill_result
+    failed_when: "'NEVER' in docker_kill_result.stderr"
+    tags:
+      - docker
+      - microservice
+
+  - name: Remove docker containers, if ones already exist to make script idempotent
+    shell: docker rm "{{ item }}"      
     with_items:
       - nb_hello
       - docker_proxy
     register: command_result
-    failed_when: "'NEVER' in command_result.stderr"
+    register: docker_rm_result
+    failed_when: "'NEVER' in docker_rm_result.stderr"
     tags:
       - docker
-    ignore_errors: true
+      - microservice
     
   - name: Install Node.js Hello Microservice from Docker.io
     # the "_" virtualhost is catch-all for the demo, replace it with a domain name
@@ -18,9 +29,11 @@
     shell: docker run -ti -p 5000:3000 -d -e VIRTUAL_HOST=app.example.com -e VIRTUAL_PORT=3000 --name=nb_hello irakli/nodebootstrap-hello
     tags: 
       - docker
+      - microservice
       
   - name: Install Docker Nginx Proxy
     # see: https://github.com/jwilder/nginx-proxy
     shell: docker run -d -p 80:80 -e DEFAULT_HOST=app.example.com --name=docker_proxy -v /var/run/docker.sock:/tmp/docker.sock jwilder/nginx-proxy
     tags:
       - docker
+      - microservice
