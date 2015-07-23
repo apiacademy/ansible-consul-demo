@@ -7,7 +7,9 @@
   - name: "Download Consul binary 0.5.2 as a zip"
     # see: http://www.consul.io/downloads.html
     get_url: url="https://github.com/apiacademy/ansible-consul-demo/raw/master/roles/consul-enabled/files/consul-0.5.2_linux_amd64.zip"
-             dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}"
+             dest=/usr/local/bin/consul-0.5.zip sha256sum="{{ consul_shasum }}" timeout=30
+    #register: consul_get_result
+    #failed_when: "'failure' in consul_get_result.stderr"             
 
   - name: "Unzip Consul binary under /usr/local/bin"        
     unarchive: src=/usr/local/bin/consul-0.5.zip
