@@ -12,3 +12,7 @@
       - zip
       - unzip      
       - sudo   
+      
+  # we only need this for Docker hosts    
+  - include: add-layerfs-support.yml
+    when: consul_servicename is defined and consul_server is not defined      

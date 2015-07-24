@@ -6,5 +6,7 @@
 
 - name: "Install Consul's Nameservers on consul clients"
   # Note: change of resolv.conf doesn't require a restart
-  template: src=resolv.conf-client.j2 dest=/etc/resolv.conf 
+  # Note: ideally we should be editing /etc/resolvconf/resolv.conf.d/tail
+  # but there're problems with that + AWS.
+  template: src=resolv.conf-client.j2 dest=/etc/resolv.conf
               owner=root group=root mode="u=rw,g=r,o=r"

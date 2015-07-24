@@ -8,11 +8,10 @@
 # 127.0.0.1 ansible_connection=local
 
 [consulservers]
-52.11.212.232  consul_host=consul1
-52.25.160.26 consul_host=consul2
-52.25.63.218  consul_host=consul3
+54.68.203.11 consul_host=consul1
+52.25.18.16 consul_host=consul2
+52.26.227.251  consul_host=consul3
 
 [webheads]
-52.25.255.209  consul_host=web1
-52.25.211.125  consul_host=web2
-
+52.11.18.170 consul_host=web1
+52.27.93.0 consul_host=web2
