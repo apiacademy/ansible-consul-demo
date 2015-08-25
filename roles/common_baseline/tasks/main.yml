@@ -13,6 +13,6 @@
       - unzip      
       - sudo   
       
-  # we only need this for Docker hosts    
+  # we only need this for Docker hosts and for older-ish kernels which require kernel upgrade    
   - include: add-layerfs-support.yml
-    when: consul_servicename is defined and consul_server is not defined      
+    when: consul_servicename is defined and consul_server is not defined and ansible_kernel | match("3.\d.*-generic")
